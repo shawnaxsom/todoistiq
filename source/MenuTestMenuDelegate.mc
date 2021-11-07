@@ -55,6 +55,8 @@ class Menu2TestMenu2Delegate extends WatchUi.Menu2InputDelegate {
             customMenu.addItem(new WatchUi.MenuItem("Images", null, :images, null));
             customMenu.addItem(new WatchUi.MenuItem("Wrap Out", null, :wrap, null));
             WatchUi.pushView(customMenu, new $.Menu2SampleCustomDelegate(), WatchUi.SLIDE_UP);
+        } else if (id.equals("filters")) {
+            WatchUi.pushView(new TodoistIQView(), new $.TodoistIQFiltersDelegate(), WatchUi.SLIDE_UP);
         } else if (id.equals("projects")) {
             WatchUi.pushView(new TodoistIQView(), new $.TodoistIQProjectsDelegate(), WatchUi.SLIDE_UP);
         } else {
