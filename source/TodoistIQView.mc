@@ -16,6 +16,17 @@ class TodoistIQView extends WatchUi.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
+        System.println("loadOptions");
+        // Generate a new Menu with a drawable Title
+        // var menu = new WatchUi.Menu2({:title=>new $.DrawableMenuTitle()});
+        var menu = new WatchUi.Menu2({});
+
+        // This comes from the Menu2Sample app provided by the Garmin Connect IQ SDK
+        // Add menu items for demonstrating toggles, checkbox and icon menu items
+        menu.addItem(new WatchUi.MenuItem("Projects", null, "projects", null));
+
+        WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
+        System.println("pushedView");
     }
 
     // Update the view
