@@ -59,7 +59,13 @@ class Menu2TestMenu2Delegate extends WatchUi.Menu2InputDelegate {
             WatchUi.pushView(new TodoistIQView(), new $.TodoistIQFiltersDelegate(), WatchUi.SLIDE_UP);
         } else if (id.equals("projects")) {
             WatchUi.pushView(new TodoistIQView(), new $.TodoistIQProjectsDelegate(), WatchUi.SLIDE_UP);
+        } else if (id.equals("today")) {
+            System.println("today pressed");
         } else {
+            System.println("unhandled option pressed:" + id);
+
+            WatchUi.pushView(new TodoistIQView(), new $.TodoistIQTasksDelegate(), WatchUi.SLIDE_UP);
+
             WatchUi.requestUpdate();
         }
     }
