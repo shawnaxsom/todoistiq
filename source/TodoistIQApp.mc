@@ -19,7 +19,13 @@ class TodoistIQApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as Array<Views or InputDelegates>? {
-        return [ new TodoistIQView(), new TodoistIQDelegate() ] as Array<Views or InputDelegates>;
+        var view = new TodoistIQView();
+        var delegate = new TodoistIQDelegate(view.method(:loadMenu));
+
+        return [
+            view,
+            delegate
+        ] as Array<Views or InputDelegates>;
     }
 
 }

@@ -7,6 +7,10 @@ class TodoistIQView extends WatchUi.View {
         View.initialize();
     }
 
+    public function onSelect(item as MenuItem) as Void {
+        loadMenu();
+    }
+
     function loadMenu() {
         // Generate a new Menu with a drawable Title
         // var menu = new WatchUi.Menu2({:title=>new $.DrawableMenuTitle()});
