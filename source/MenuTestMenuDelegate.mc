@@ -19,6 +19,7 @@ class Menu2TestMenu2Delegate extends WatchUi.Menu2InputDelegate {
     //! Handle an item being selected
     //! @param item The selected menu item
     public function onSelect(item as MenuItem) as Void {
+        System.println("onSelect1");
         var id = item.getId() as String;
         var subLabel = item.getSubLabel() as String;
         if (id.equals("toggle")) {
@@ -88,6 +89,7 @@ class Menu2SampleSubMenuDelegate extends WatchUi.Menu2InputDelegate {
     //! Handle an item being selected
     //! @param item The selected menu item
     public function onSelect(item as MenuItem) as Void {
+        System.println("onSelect2");
         // For IconMenuItems, we will change to the next icon state.
         // This demonstrates a custom toggle operation using icons.
         // Static icons can also be used in this layout.
@@ -119,6 +121,7 @@ class Menu2SampleCustomDelegate extends WatchUi.Menu2InputDelegate {
     //! Handle an item being selected
     //! @param item The selected menu item
     public function onSelect(item as MenuItem) as Void {
+        System.println("onSelect3");
         var id = item.getId();
 
         // Create/push the custom menus

@@ -7,16 +7,7 @@ class TodoistIQView extends WatchUi.View {
         View.initialize();
     }
 
-    // Load your resources here
-    function onLayout(dc as Dc) as Void {
-        setLayout(Rez.Layouts.MainLayout(dc));
-    }
-
-    // Called when this View is brought to the foreground. Restore
-    // the state of this View and prepare it to be shown. This includes
-    // loading resources into memory.
-    function onShow() as Void {
-        System.println("loadOptions");
+    function loadMenu() {
         // Generate a new Menu with a drawable Title
         // var menu = new WatchUi.Menu2({:title=>new $.DrawableMenuTitle()});
         var menu = new WatchUi.Menu2({});
@@ -28,6 +19,21 @@ class TodoistIQView extends WatchUi.View {
 
         WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
         System.println("pushedView");
+    }
+
+
+    // Load your resources here
+    function onLayout(dc as Dc) as Void {
+        setLayout(Rez.Layouts.MainLayout(dc));
+
+        loadMenu();
+    }
+
+    // Called when this View is brought to the foreground. Restore
+    // the state of this View and prepare it to be shown. This includes
+    // loading resources into memory.
+    function onShow() as Void {
+        System.println("loadOptions");
     }
 
     // Update the view

@@ -13,6 +13,7 @@ class TodoistIQFiltersHandlerDelegate extends WatchUi.BehaviorDelegate {
     }
 
     public function onSelect(item as MenuItem) as Void {
+        System.println("onSelect5");
         var id = item.getId();
         System.println("Selected: " + id);
 

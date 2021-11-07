@@ -25,11 +25,11 @@ class TodoistIQTasksDelegate extends WatchUi.BehaviorDelegate {
             System.println("Request Successful");                   // print success
             for (var i = 0; i < data.size(); i++) {
                 System.println(data[i]);                   // print success
-                menu.addItem(new WatchUi.MenuItem(data[i]["content"], null, data[i]["content"], null));
+                menu.addItem(new WatchUi.MenuItem(data[i]["content"], null, data[i]["id"], null));
             }
 
             // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
-            WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
+            WatchUi.pushView(menu, new $.TodoistIQTasksHandlerDelegate(), WatchUi.SLIDE_UP);
         } else {
             System.println("Response: " + responseCode);            // print response code
             System.println("Response: " + data);            // print response code
@@ -64,6 +64,32 @@ class TodoistIQTasksDelegate extends WatchUi.BehaviorDelegate {
     }
 
 
+
+    function onMenu() as Boolean {
+        WatchUi.pushView(new Rez.Menus.MainMenu(), new TodoistIQMenuDelegate(), WatchUi.SLIDE_UP);
+        return true;
+    }
+
+}
+
+class TodoistIQTasksHandlerDelegate extends WatchUi.BehaviorDelegate {
+    function initialize() {
+        BehaviorDelegate.initialize();
+
+        // makeRequest(filter);
+    }
+
+    public function onSelect(item as MenuItem) as Void {
+        System.println("onSelect6");
+        var id = item.getId();
+        System.println("onSelect6 id: " + id);
+        
+        var view = new TodoistIQEditTaskView();
+        var handler = new $.TodoistIQEditTaskDelegate();
+        view.setTaskId(id);
+        handler.setTaskId(id);
+        WatchUi.pushView(view, handler, WatchUi.SLIDE_UP);
+    }
 
     function onMenu() as Boolean {
         WatchUi.pushView(new Rez.Menus.MainMenu(), new TodoistIQMenuDelegate(), WatchUi.SLIDE_UP);
