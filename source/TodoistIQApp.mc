@@ -33,28 +33,32 @@ class TodoistIQApp extends Application.AppBase {
             // menu.addItem(new WatchUi.MenuItem("Custom", null, "custom", null));
 
             System.println("Request Successful");                   // print success
-            for (var i = 0; i < data.size(); i++) {
-                System.println(data[i]);                   // print success
-                menu.addItem(new WatchUi.MenuItem(data[i]["name"], null, data[i]["name"], null));
+            for (var i = 0; i < data["projects"].size(); i++) {
+                System.println(data["projects"][i]);                   // print success
+                menu.addItem(new WatchUi.MenuItem(data["projects"][i]["name"], null, data["projects"][i]["name"], null));
             }
 
             // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
             WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
         } else {
             System.println("Response: " + responseCode);            // print response code
+            System.println("Response: " + data);            // print response code
         }
     }
 
     function makeRequest() as Void {
         var jsonSecrets = Application.loadResource(Rez.JsonData.jsonSecrets);
 
-        var url = "https://api.todoist.com/rest/v1/projects";                         // set the url
+        var url = "https://api.todoist.com/sync/v8/sync";                         // set the url
 
         var params = {                                              // set the parameters
+            "sync_token" => "*",
+            "resource_types" => "[\"projects\"]"
         };
+        System.println(params);                   // print success
 
         var options = {                                             // set the options
-            :method => Communications.HTTP_REQUEST_METHOD_GET,      // set HTTP method
+            :method => Communications.HTTP_REQUEST_METHOD_POST,      // set HTTP method
             :headers => {                                           // set headers
             "Authorization" => "Bearer " + jsonSecrets["apiKey"]},
             // set response type
@@ -66,6 +70,7 @@ class TodoistIQApp extends Application.AppBase {
         // Make the Communications.makeWebRequest() call
         Communications.makeWebRequest(url, params, options, method(:onReceive));
     }
+
 
     // Return the initial view of your application here
     function getInitialView() as Array<Views or InputDelegates>? {
