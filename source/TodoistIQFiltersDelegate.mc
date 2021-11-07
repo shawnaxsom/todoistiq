@@ -2,6 +2,7 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 
 class TodoistIQFiltersDelegate extends WatchUi.BehaviorDelegate {
+    var filters = null;
 
     function initialize() {
         BehaviorDelegate.initialize();
@@ -16,21 +17,20 @@ class TodoistIQFiltersDelegate extends WatchUi.BehaviorDelegate {
             // var menu = new WatchUi.Menu2({:title=>new $.DrawableMenuTitle()});
             var menu = new WatchUi.Menu2({});
 
-            // This comes from the Menu2Sample app provided by the Garmin Connect IQ SDK
-            // Add menu items for demonstrating toggles, checkbox and icon menu items
-            // menu.addItem(new WatchUi.MenuItem("Toggles", "sublabel", "toggle", null));
-            // menu.addItem(new WatchUi.MenuItem("Checkboxes", null, "check", null));
-            // menu.addItem(new WatchUi.MenuItem("Icons", null, "icon", null));
-            // menu.addItem(new WatchUi.MenuItem("Custom", null, "custom", null));
+            // Treat Today like a filter
+            menu.addItem(new WatchUi.MenuItem("Today", "filter", "today", null));
 
             System.println("Request Successful");                   // print success
-            for (var i = 0; i < data["filters"].size(); i++) {
+            filters = data["filters"];
+            for (var i = 0; i < filters.size(); i++) {
                 System.println(data["filters"][i]);                   // print success
-                menu.addItem(new WatchUi.MenuItem(data["filters"][i]["name"], null, data["filters"][i]["name"], null));
+                menu.addItem(new WatchUi.MenuItem(data["filters"][i]["name"], "filter", data["filters"][i]["name"], null));
             }
 
             // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
-            WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
+            var handler = new $.TodoistIQFiltersHandlerDelegate();
+            handler.setFilters(filters);
+            WatchUi.pushView(menu, handler, WatchUi.SLIDE_UP);
         } else {
             System.println("Response: " + responseCode);            // print response code
             System.println("Response: " + data);            // print response code
@@ -62,7 +62,10 @@ class TodoistIQFiltersDelegate extends WatchUi.BehaviorDelegate {
         Communications.makeWebRequest(url, params, options, method(:onReceive));
     }
 
-
+    public function onSelect(item as MenuItem) as Void {
+        var id = item.getId();
+        System.println("Selected: " + id);
+    }
 
     function onMenu() as Boolean {
         WatchUi.pushView(new Rez.Menus.MainMenu(), new TodoistIQMenuDelegate(), WatchUi.SLIDE_UP);

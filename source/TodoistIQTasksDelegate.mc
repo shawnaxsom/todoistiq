@@ -2,11 +2,10 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 
 class TodoistIQTasksDelegate extends WatchUi.BehaviorDelegate {
-
     function initialize() {
         BehaviorDelegate.initialize();
 
-        makeRequest();
+        // makeRequest(filter);
     }
 
     // set up the response callback function
@@ -37,13 +36,15 @@ class TodoistIQTasksDelegate extends WatchUi.BehaviorDelegate {
         }
     }
 
-    function makeRequest() as Void {
+    function makeRequest(filter as String) as Void {
+        System.println("Filtering tasks by: " + filter);
         var jsonSecrets = Application.loadResource(Rez.JsonData.jsonSecrets);
 
-        var url = "https://api.todoist.com/rest/v1/tasks";                         // set the url
+        var querystring = "?filter=" + Communications.encodeURL(filter);
+        var url = "https://api.todoist.com/rest/v1/tasks" + querystring;
 
         var params = {                                              // set the parameters
-            "filter" => "today",
+            // "filter" => filter,
         };
         System.println(params);                   // print success
 
@@ -51,6 +52,7 @@ class TodoistIQTasksDelegate extends WatchUi.BehaviorDelegate {
             :method => Communications.HTTP_REQUEST_METHOD_GET,      // set HTTP method
             :headers => {                                           // set headers
             "Authorization" => "Bearer " + jsonSecrets["apiKey"]},
+            // "filter" => "today",
             // set response type
             :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };

@@ -20,6 +20,7 @@ class Menu2TestMenu2Delegate extends WatchUi.Menu2InputDelegate {
     //! @param item The selected menu item
     public function onSelect(item as MenuItem) as Void {
         var id = item.getId() as String;
+        var subLabel = item.getSubLabel() as String;
         if (id.equals("toggle")) {
             // When the toggle menu item is selected, push a new menu that demonstrates
             // left and right toggles with automatic substring toggles.
@@ -59,12 +60,12 @@ class Menu2TestMenu2Delegate extends WatchUi.Menu2InputDelegate {
             WatchUi.pushView(new TodoistIQView(), new $.TodoistIQFiltersDelegate(), WatchUi.SLIDE_UP);
         } else if (id.equals("projects")) {
             WatchUi.pushView(new TodoistIQView(), new $.TodoistIQProjectsDelegate(), WatchUi.SLIDE_UP);
-        } else if (id.equals("today")) {
-            System.println("today pressed");
+        } else if (subLabel.equals("filter")) {
+            var tasksDelegate = new $.TodoistIQTasksDelegate();
+            tasksDelegate.makeRequest(id);
+            WatchUi.pushView(new TodoistIQView(), tasksDelegate, WatchUi.SLIDE_UP);
         } else {
             System.println("unhandled option pressed:" + id);
-
-            WatchUi.pushView(new TodoistIQView(), new $.TodoistIQTasksDelegate(), WatchUi.SLIDE_UP);
 
             WatchUi.requestUpdate();
         }
