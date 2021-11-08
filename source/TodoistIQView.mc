@@ -18,6 +18,7 @@ class TodoistIQView extends WatchUi.View {
 
         // This comes from the Menu2Sample app provided by the Garmin Connect IQ SDK
         // Add menu items for demonstrating toggles, checkbox and icon menu items
+        menu.addItem(new WatchUi.MenuItem("Today", null, "today", null));
         menu.addItem(new WatchUi.MenuItem("Filters", null, "filters", null));
         menu.addItem(new WatchUi.MenuItem("Projects", null, "projects", null));
 
