@@ -1,18 +1,40 @@
-import Toybox.Lang;
+import Toybox.Graphics;
 import Toybox.WatchUi;
 
 class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
-    // TODO: for some reason this wasn't working as a non-static variable
-    static var taskId = null;
+    var taskId = null;
 
     function initialize() {
-        System.println("foobar4");
+        System.println("initializing edit task delegate");
         BehaviorDelegate.initialize();
+
+        loadMenu();
     }
 
-    function setTaskId(taskIdToSet as String) {
-        System.println("setTaskId5: " + taskIdToSet);
-        TodoistIQEditTaskDelegate.taskId = taskIdToSet;
+    function loadMenu() {
+        System.println("foobar1");
+        // Generate a new Menu with a drawable Title
+        // var menu = new WatchUi.Menu2({:title=>new $.DrawableMenuTitle()});
+        var menu = new WatchUi.Menu2({});
+
+        // This comes from the Menu2Sample app provided by the Garmin Connect IQ SDK
+        // Add menu items for demonstrating toggles, checkbox and icon menu items
+        menu.addItem(new WatchUi.MenuItem("Complete", null, "complete", null));
+
+        // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
+        var handler = new $.TodoistIQEditTaskHandlerDelegate();
+        WatchUi.pushView(menu, handler, WatchUi.SLIDE_UP);
+    }
+
+    public function setTaskId(taskIdToSet as String) {
+        System.println("Setting task: " + taskIdToSet);
+        taskId = taskIdToSet;
+    }
+
+    function onMenu() as Boolean {
+        System.println("foobar2");
+        WatchUi.pushView(new Rez.Menus.MainMenu(), new TodoistIQMenuDelegate(), WatchUi.SLIDE_UP);
+        return true;
     }
 
     // set up the response callback function
@@ -25,19 +47,20 @@ class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
         }
     }
 
-
     function completeTask(id as String) as Void {
         System.println("foobar6");
         System.println("Completing task completeTask: " + id);
         var jsonSecrets = Application.loadResource(Rez.JsonData.jsonSecrets);
 
-        var url = "https://api.todoist.com/rest/v1/tasks/" + id + "/close";
+        var url = "https://api.todoist.com/rest/v1/tasks/" + taskId + "/close";
 
-        var params = null;
+        var params = {                                              // set the parameters
+            // "filter" => filter,
+        };
         System.println(params);                   // print success
 
         var options = {                                             // set the options
-            :method => Communications.HTTP_REQUEST_METHOD_POST,      // set HTTP method
+            :method => Communications.HTTP_REQUEST_METHOD_GET,      // set HTTP method
             :headers => {                                           // set headers
             "Authorization" => "Bearer " + jsonSecrets["apiKey"]},
             // "filter" => "today",
@@ -51,24 +74,18 @@ class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
         Communications.makeWebRequest(url, params, options, method(:onReceive));
     }
 
-    public function onSelect(item as MenuItem) as Void {
-        System.println("foobar7");
-        var id = item.getId();
-        
-        if (id.equals("complete")) {
-            System.println("Completing task onSelect delegate: " + TodoistIQEditTaskDelegate.taskId);
-            completeTask(TodoistIQEditTaskDelegate.taskId);
-        }
-    }
 
-    function onMenu() as Boolean {
-        System.println("foobar8");
-        WatchUi.pushView(new Rez.Menus.MainMenu(), new TodoistIQMenuDelegate(), WatchUi.SLIDE_UP);
-        return true;
-    }
+    // function onMenuItem(item as Symbol) as Void {
+    //     System.println("foobar3");
+    //     if (item == "complete") {
+    //         System.println("Completing task onMenuItem: " + taskId);
+    //         completeTask(taskId);
+    //     }
+    // }
 
-    //! Handle the back key being pressed
-    public function onBack() as Void {
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+    // Called when this View is removed from the screen. Save the
+    // state of this View here. This includes freeing resources from
+    // memory.
+    function onHide() as Void {
     }
 }

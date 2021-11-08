@@ -70,6 +70,10 @@ class TodoistIQTasksDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
+    //! Handle the back key being pressed
+    public function onBack() as Void {
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+    }
 }
 
 class TodoistIQTasksHandlerDelegate extends WatchUi.BehaviorDelegate {
@@ -84,11 +88,9 @@ class TodoistIQTasksHandlerDelegate extends WatchUi.BehaviorDelegate {
         var id = item.getId();
         System.println("onSelect6 id: " + id);
         
-        var view = new TodoistIQEditTaskView();
-        var handler = new $.TodoistIQEditTaskDelegate();
-        view.setTaskId(id);
-        handler.setTaskId(id);
-        WatchUi.pushView(view, handler, WatchUi.SLIDE_UP);
+        var delegate = new TodoistIQEditTaskDelegate();
+        WatchUi.pushView(new TodoistIQView(), delegate, WatchUi.SLIDE_UP);
+        delegate.loadMenu();
     }
 
     function onMenu() as Boolean {
@@ -96,4 +98,8 @@ class TodoistIQTasksHandlerDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
+    //! Handle the back key being pressed
+    public function onBack() as Void {
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+    }
 }

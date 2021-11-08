@@ -41,4 +41,8 @@ class TodoistIQFiltersHandlerDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
+    //! Handle the back key being pressed
+    public function onBack() as Void {
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+    }
 }
