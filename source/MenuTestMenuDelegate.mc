@@ -22,49 +22,15 @@ class Menu2TestMenu2Delegate extends WatchUi.Menu2InputDelegate {
         System.println("onSelect1");
         var id = item.getId() as String;
         var subLabel = item.getSubLabel() as String;
-        if (id.equals("toggle")) {
-            // When the toggle menu item is selected, push a new menu that demonstrates
-            // left and right toggles with automatic substring toggles.
-            var toggleMenu = new WatchUi.Menu2({:title=>"Toggles"});
-            toggleMenu.addItem(new WatchUi.ToggleMenuItem("Item 1", {:enabled=>"Left Toggle: on", :disabled=>"Left Toggle: off"}, "left", false, {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
-            toggleMenu.addItem(new WatchUi.ToggleMenuItem("Item 2", {:enabled=>"Right Toggle: on", :disabled=>"Right Toggle: off"}, "right", false, {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_RIGHT}));
-            toggleMenu.addItem(new WatchUi.ToggleMenuItem("Item 3", {:enabled=>"Toggle: on", :disabled=>"Toggle: off"}, "default", true, null));
-            WatchUi.pushView(toggleMenu, new $.Menu2SampleSubMenuDelegate(), WatchUi.SLIDE_UP);
-        } else if (id.equals("check")) {
-            // When the check menu item is selected, push a new menu that demonstrates
-            // left and right checkbox menu items
-            var checkMenu = new WatchUi.CheckboxMenu({:title=>"Checkboxes"});
-            checkMenu.addItem(new WatchUi.CheckboxMenuItem("Item 1", "Left Check", "left", false, {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
-            checkMenu.addItem(new WatchUi.CheckboxMenuItem("Item 2", "Right Check", "right", false, {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_RIGHT}));
-            checkMenu.addItem(new WatchUi.CheckboxMenuItem("Item 3", "Check", "default", true, null));
-            WatchUi.pushView(checkMenu, new $.Menu2SampleSubMenuDelegate(), WatchUi.SLIDE_UP);
-        } else if (id.equals("icon")) {
-            // When the icon menu item is selected, push a new menu that demonstrates
-            // left and right custom icon menus
-            var iconMenu = new WatchUi.Menu2({:title=>"Icons"});
-            var drawable1 = new $.CustomIcon();
-            var drawable2 = new $.CustomIcon();
-            var drawable3 = new $.CustomIcon();
-            iconMenu.addItem(new WatchUi.IconMenuItem("Icon 1", drawable1.getString(), "left", drawable1, {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
-            iconMenu.addItem(new WatchUi.IconMenuItem("Icon 2", drawable2.getString(), "right", drawable2, {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_RIGHT}));
-            iconMenu.addItem(new WatchUi.IconMenuItem("Icon 3", drawable3.getString(), "default", drawable3, null));
-            WatchUi.pushView(iconMenu, new $.Menu2SampleSubMenuDelegate(), WatchUi.SLIDE_UP);
-        } else if (id.equals("custom")) {
-            // When the custom menu item is selected, push a new menu that demonstrates
-            // custom menus
-            var customMenu = new WatchUi.Menu2({:title=>"Custom Menus"});
-            customMenu.addItem(new WatchUi.MenuItem("Basic Drawables", null, :basic, null));
-            customMenu.addItem(new WatchUi.MenuItem("Images", null, :images, null));
-            customMenu.addItem(new WatchUi.MenuItem("Wrap Out", null, :wrap, null));
-            WatchUi.pushView(customMenu, new $.Menu2SampleCustomDelegate(), WatchUi.SLIDE_UP);
-        } else if (id.equals("filters")) {
-            WatchUi.pushView(new TodoistIQView(), new $.TodoistIQFiltersDelegate(), WatchUi.SLIDE_UP);
+        if (id.equals("filters")) {
+            // WatchUi.pushView(new WatchUi.Menu2({:title=>"Filters Menu"}), new $.TodoistIQFiltersDelegate(), WatchUi.SLIDE_BLINK);
+            var delegate = new $.TodoistIQFiltersDelegate();
         } else if (id.equals("projects")) {
-            WatchUi.pushView(new TodoistIQView(), new $.TodoistIQProjectsDelegate(), WatchUi.SLIDE_UP);
-        } else if (subLabel.equals("filter")) {
-            var tasksDelegate = new $.TodoistIQTasksDelegate();
-            tasksDelegate.makeRequest(id);
-            WatchUi.pushView(new TodoistIQView(), tasksDelegate, WatchUi.SLIDE_UP);
+            WatchUi.pushView(new WatchUi.Menu2({:title=>"Projects Menu"}), new $.TodoistIQProjectsDelegate(), WatchUi.SLIDE_IMMEDIATE);
+        // } else if (subLabel.equals("filter")) {
+        //     var tasksDelegate = new $.TodoistIQTasksDelegate();
+        //     tasksDelegate.makeRequest(id);
+        //     // WatchUi.pushView(new WatchUi.Menu2({:title=>"Tasks Menu"}), tasksDelegate, WatchUi.SLIDE_IMMEDIATE);
         } else {
             System.println("unhandled option pressed:" + id);
 

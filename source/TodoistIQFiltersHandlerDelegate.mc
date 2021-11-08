@@ -33,7 +33,8 @@ class TodoistIQFiltersHandlerDelegate extends WatchUi.BehaviorDelegate {
             }
         }
 
-        WatchUi.pushView(new TodoistIQView(), tasksDelegate, WatchUi.SLIDE_UP);
+        // WatchUi.switchToView(new WatchUi.Menu2({:title=>"Tasks Menus"}), tasksDelegate, WatchUi.SLIDE_UP);
+        // WatchUi.pushView(new WatchUi.Menu2({:title=>"Tasks Menus"}), tasksDelegate, WatchUi.SLIDE_UP);
     }
 
     function onMenu() as Boolean {

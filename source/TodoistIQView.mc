@@ -21,7 +21,7 @@ class TodoistIQView extends WatchUi.View {
         menu.addItem(new WatchUi.MenuItem("Filters", null, "filters", null));
         menu.addItem(new WatchUi.MenuItem("Projects", null, "projects", null));
 
-        WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
+        WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_IMMEDIATE);
         System.println("pushedView");
     }
 

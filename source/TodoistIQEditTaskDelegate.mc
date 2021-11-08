@@ -7,8 +7,6 @@ class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
     function initialize() {
         System.println("initializing edit task delegate");
         BehaviorDelegate.initialize();
-
-        loadMenu();
     }
 
     function loadMenu() {
@@ -24,6 +22,8 @@ class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
         // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
         var handler = new $.TodoistIQEditTaskHandlerDelegate();
         handler.setTaskId(TodoistIQEditTaskDelegate.taskId);
+        // WatchUi.switchToView(menu, handler, WatchUi.SLIDE_UP);
+        System.println("push task handler 1");
         WatchUi.pushView(menu, handler, WatchUi.SLIDE_UP);
     }
 

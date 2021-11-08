@@ -29,8 +29,7 @@ class TodoistIQProjectsDelegate extends WatchUi.BehaviorDelegate {
                 menu.addItem(new WatchUi.MenuItem(data["projects"][i]["name"], null, data["projects"][i]["name"], null));
             }
 
-            // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
-            WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
+            WatchUi.switchToView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_IMMEDIATE);
         } else {
             System.println("Response: " + responseCode);            // print response code
             System.println("Response: " + data);            // print response code

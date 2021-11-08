@@ -28,7 +28,7 @@ class TodoistIQTasksDelegate extends WatchUi.BehaviorDelegate {
                 menu.addItem(new WatchUi.MenuItem(data[i]["content"], null, data[i]["id"], null));
             }
 
-            // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
+            // WatchUi.switchToView(menu, new $.TodoistIQTasksHandlerDelegate(), WatchUi.SLIDE_UP);
             WatchUi.pushView(menu, new $.TodoistIQTasksHandlerDelegate(), WatchUi.SLIDE_UP);
         } else {
             System.println("Response: " + responseCode);            // print response code
@@ -90,7 +90,8 @@ class TodoistIQTasksHandlerDelegate extends WatchUi.BehaviorDelegate {
         
         var delegate = new TodoistIQEditTaskDelegate();
         delegate.setTaskId(id);
-        WatchUi.pushView(new TodoistIQView(), delegate, WatchUi.SLIDE_UP);
+        // WatchUi.switchToView(new WatchUi.Menu2({:title=>"Edit Task Menu"}), delegate, WatchUi.SLIDE_UP);
+        // WatchUi.pushView(new WatchUi.Menu2({:title=>"Edit Task Menu"}), delegate, WatchUi.SLIDE_UP);
         delegate.loadMenu();
     }
 

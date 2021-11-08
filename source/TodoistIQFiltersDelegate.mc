@@ -30,7 +30,7 @@ class TodoistIQFiltersDelegate extends WatchUi.BehaviorDelegate {
             // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
             var handler = new $.TodoistIQFiltersHandlerDelegate();
             handler.setFilters(filters);
-            WatchUi.pushView(menu, handler, WatchUi.SLIDE_UP);
+            WatchUi.switchToView(menu, handler, WatchUi.SLIDE_UP);
         } else {
             System.println("Response: " + responseCode);            // print response code
             System.println("Response: " + data);            // print response code
