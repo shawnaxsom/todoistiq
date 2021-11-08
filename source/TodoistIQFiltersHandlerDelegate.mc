@@ -22,7 +22,7 @@ class TodoistIQFiltersHandlerDelegate extends WatchUi.BehaviorDelegate {
         System.println("filters.size(): " + filters.size());
         
         if (id.equals("today")) {
-            tasksDelegate.makeRequest("today");
+            tasksDelegate.makeRequest("(today | overdue)");
         } else {
             for (var i = 0; i < filters.size(); i++) {
                 System.println("filter: " + filters[i]["name"]);

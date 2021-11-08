@@ -29,7 +29,7 @@ class Menu2TestMenu2Delegate extends WatchUi.Menu2InputDelegate {
             WatchUi.pushView(new WatchUi.Menu2({:title=>"Projects Menu"}), new $.TodoistIQProjectsDelegate(), WatchUi.SLIDE_IMMEDIATE);
         } else if (id.equals("today")) {
             var tasksDelegate = new $.TodoistIQTasksDelegate();
-            tasksDelegate.makeRequest("today");
+            tasksDelegate.makeRequest("(today | overdue)");
         } else {
             System.println("unhandled option pressed:" + id);
 
