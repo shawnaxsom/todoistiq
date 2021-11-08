@@ -23,12 +23,14 @@ class TodoistIQEditTaskHandlerDelegate extends WatchUi.BehaviorDelegate {
             System.println("Response: " + responseCode);            // print response code
             System.println("Response: " + data);            // print response code
         }
+
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
     }
 
 
     function completeTask(id as String) as Void {
         System.println("foobar6");
-        System.println("Completing task completeTask: " + id);
+        System.println("Completing task completeTask handler: " + id);
         var jsonSecrets = Application.loadResource(Rez.JsonData.jsonSecrets);
 
         var url = "https://api.todoist.com/rest/v1/tasks/" + id + "/close";

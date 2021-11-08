@@ -89,6 +89,7 @@ class TodoistIQTasksHandlerDelegate extends WatchUi.BehaviorDelegate {
         System.println("onSelect6 id: " + id);
         
         var delegate = new TodoistIQEditTaskDelegate();
+        delegate.setTaskId(id);
         WatchUi.pushView(new TodoistIQView(), delegate, WatchUi.SLIDE_UP);
         delegate.loadMenu();
     }

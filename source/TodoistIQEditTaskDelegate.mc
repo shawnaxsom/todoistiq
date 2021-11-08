@@ -2,7 +2,7 @@ import Toybox.Graphics;
 import Toybox.WatchUi;
 
 class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
-    var taskId = null;
+    static var taskId = null;
 
     function initialize() {
         System.println("initializing edit task delegate");
@@ -23,12 +23,13 @@ class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
 
         // WatchUi.pushView(menu, new $.Menu2TestMenu2Delegate(), WatchUi.SLIDE_UP);
         var handler = new $.TodoistIQEditTaskHandlerDelegate();
+        handler.setTaskId(TodoistIQEditTaskDelegate.taskId);
         WatchUi.pushView(menu, handler, WatchUi.SLIDE_UP);
     }
 
     public function setTaskId(taskIdToSet as String) {
         System.println("Setting task: " + taskIdToSet);
-        taskId = taskIdToSet;
+        TodoistIQEditTaskDelegate.taskId = taskIdToSet;
     }
 
     function onMenu() as Boolean {
@@ -49,7 +50,7 @@ class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
 
     function completeTask(id as String) as Void {
         System.println("foobar6");
-        System.println("Completing task completeTask: " + id);
+        System.println("Completing task completeTask del: " + id);
         var jsonSecrets = Application.loadResource(Rez.JsonData.jsonSecrets);
 
         var url = "https://api.todoist.com/rest/v1/tasks/" + taskId + "/close";
@@ -75,17 +76,22 @@ class TodoistIQEditTaskDelegate extends WatchUi.BehaviorDelegate {
     }
 
 
-    // function onMenuItem(item as Symbol) as Void {
-    //     System.println("foobar3");
-    //     if (item == "complete") {
-    //         System.println("Completing task onMenuItem: " + taskId);
-    //         completeTask(taskId);
-    //     }
-    // }
+    function onMenuItem(item as Symbol) as Void {
+        System.println("foobar3");
+        if (item == "complete") {
+            System.println("Completing task onMenuItem: " + taskId);
+            completeTask(taskId);
+        }
+    }
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() as Void {
+    }
+
+    //! Handle the back key being pressed
+    public function onBack() as Void {
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
     }
 }
